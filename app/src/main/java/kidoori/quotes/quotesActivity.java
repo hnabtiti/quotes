@@ -13,6 +13,9 @@ public class quotesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quotes);
         listView = (ListView) findViewById(R.id.qqlist);
+        QuotesAdapter quotesAdapter =  new QuotesAdapter(this,Shared.getAuthor().getQuotes());
+
+        listView.setAdapter(quotesAdapter);
 
     }
 }

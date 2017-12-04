@@ -17,13 +17,13 @@ class Author {
     @SerializedName("slug")
     String slug;
 
-    List<Quote> quotes;
+    ArrayList<Quote> quotes;
 
-    public List<Quote> getQuotes() {
+    public ArrayList<Quote> getQuotes() {
         return quotes;
     }
 
-    public void setQuotes(List<Quote> quotes) {
+    public void setQuotes(ArrayList<Quote> quotes) {
         this.quotes = quotes;
     }
 

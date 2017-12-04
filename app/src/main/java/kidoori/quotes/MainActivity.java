@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -21,6 +22,7 @@ public class MainActivity extends Activity implements ApiFinish {
     private ListView listView;
     private Context context;
     private AuthorAdapter authorAdapter;
+    private ArrayList<Author> authors;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,14 +31,13 @@ public class MainActivity extends Activity implements ApiFinish {
         this.context = this;
         new QuotesِِAsyncTask(this).execute();
         listView = (ListView) findViewById(R.id.dolist);
-        listView.setOnClickListener(new View.OnClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent;
                 intent=new Intent(context,quotesActivity.class);
-               Shared.setAuthor(((Author) view.getTag()));
+                Shared.setAuthor(authors.get(i));
                 context.startActivity(intent);
-
             }
         });
 
@@ -47,7 +48,7 @@ public class MainActivity extends Activity implements ApiFinish {
     public void sucess(Data data) {
         if (null != data) {
             if (null != data.getQuotes()) {
-                ArrayList<Author> authors = new ArrayList<Author>();
+                 authors = new ArrayList<Author>();
                 for (int i = 0; i < data.getQuotes().size(); i++) {
                     if (null != data.getQuotes().get(i)) {
                         Author mAuthor = data.getQuotes().get(i).getAuthor();
