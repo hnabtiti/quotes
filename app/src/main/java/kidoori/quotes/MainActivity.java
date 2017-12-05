@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -78,6 +79,15 @@ public class MainActivity extends Activity implements ApiFinish {
 
     @Override
     public void fail(IOException e) {
+        MainActivity.this.runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+                // your stuff to update the UI
+                Toast.makeText(MainActivity.this,"الرجاء التأكد من الانترنت",Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
     }
 

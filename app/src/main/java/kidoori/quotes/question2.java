@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -112,7 +113,14 @@ public class question2 extends Activity implements ApiFinish, OnFragmentInteract
 
     @Override
     public void fail(IOException e) {
+        question2.this.runOnUiThread(new Runnable() {
 
+            @Override
+            public void run() {
+                // your stuff to update the UI
+                Toast.makeText(question2.this,"الرجاء التأكد من الانترنت",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     boolean isHeNewAuthor(ArrayList<Author> authors, Author mAuthor) {
