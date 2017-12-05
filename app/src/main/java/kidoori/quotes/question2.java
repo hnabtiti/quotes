@@ -17,7 +17,7 @@ import android.widget.ListView;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class question2 extends Activity implements ApiFinish, AuthorsFragment.OnFragmentInteractionListener {
+public class question2 extends Activity implements ApiFinish, OnFragmentInteractionListener, AdapterView.OnItemClickListener {
     private Context context;
     private AuthorAdapter authorAdapter;
     private ArrayList<Author> authors;
@@ -40,6 +40,12 @@ public class question2 extends Activity implements ApiFinish, AuthorsFragment.On
                 AuthorsFragment();
             }
         });
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                QuoteFragment();
+            }
+        });
 
 
     }
@@ -47,6 +53,17 @@ public class question2 extends Activity implements ApiFinish, AuthorsFragment.On
         AuthorsFragment fr;
             fr =   AuthorsFragment.newInstance("   "," ");
 
+
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_place2, fr);
+        fragmentTransaction.commit();
+
+    }
+
+    public void QuoteFragment() {
+        QuoteFragment fr;
+        fr = QuoteFragment.newInstance("   ", " ");
 
         FragmentManager fm = getFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
@@ -70,12 +87,15 @@ public class question2 extends Activity implements ApiFinish, AuthorsFragment.On
                             }
                             authors = addQuoteToAuthor(authors, mAuthor, data.getQuotes().get(i));
                             Shared.setAuthors(authors);
+                            Shared.setAuthor(authors.get(0));
                             button1.post(new Runnable() {
                                 @Override
                                 public void run() {
                                     button1.setEnabled(true);
                                     button2.setEnabled(true);
                                     button3.setEnabled(true);
+                                    AuthorsFragment();
+                                    QuoteFragment();
                                 }
                             });
 
@@ -118,6 +138,13 @@ public class question2 extends Activity implements ApiFinish, AuthorsFragment.On
 
     @Override
     public void onFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        Shared.setAuthor(authors.get(i));
+        QuoteFragment();
 
     }
 }
